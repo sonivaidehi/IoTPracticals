@@ -1,7 +1,8 @@
 from __future__ import print_function
+import context
 import paho.mqtt.publish as publish
 import psutil
-import context
+
 
 channelID = "1275501"
 apiKey = "BLREN6J5W7VTPWA8"
@@ -20,7 +21,7 @@ while(True):
     cpuPer = psutil.cpu_percent(interval=20)
     ramPer = psutil.virtual_memory().percent
     print("CPU= ",  cpuPer, " RAM: ", ramPer)
-    tPayload = "Field1=" + str(cpuPer) + "Field2=" + str(ramPer)
+    tPayload = "Field1=" + str(cpuPer) + "&field2=" + str(ramPer)
     try:
         publish.single(topic, payload=tPayload, hostname=mqttHost, port=tPort, tls=tTLS, transport=tTransport)
     except (KeyboardInterrupt):
